@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="logo">
+    <file>github.png</file>
+    <file>icon.png</file>
+  </qresource>
+</RCC>

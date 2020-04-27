@@ -6,9 +6,9 @@ Sail Word Card是自由软件，基于GUN GPL2.0开源许可协议发布,意味�
 
 Sail Word Card目前只能运行在Windows平台上，以后会推出跨平台的版本，意味着可以安装到任何支持运行Python和PyQt的设备。
 
-
+下载地址：[百度网盘]("https://pan.baidu.com/s/1vufyv9yGrQ4DLcnec4Hi3A")    提取码：qs9j
 
 ![主界面]( http://wordcard.eace.top/main.png )
-![效果1]( http://wordcard.eace.top/A.png )
-![效果2]( http://wordcard.eace.top/B.png )
+![效果1]( http://wordcard.eace.top/A.jpg )
+![效果2]( http://wordcard.eace.top/B.jpg )
 

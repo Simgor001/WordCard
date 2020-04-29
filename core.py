@@ -97,18 +97,18 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             self.lineEdit_B.setText('')
             self.lineEdit_A.setFocus(True)
         else:
-            word_A = self.word_list[index]['A']
-            word_B = self.word_list[index]['B']
-            if word_A == '(空)':
+            word_a = self.word_list[index]['A']
+            word_b = self.word_list[index]['B']
+            if word_a == '(空)':
                 self.lineEdit_A.setFocus(True)
-                self.lineEdit_B.setText(word_B)
-            elif word_B == '(空)':
+                self.lineEdit_B.setText(word_b)
+            elif word_b == '(空)':
                 self.lineEdit_B.setFocus(True)
-                self.lineEdit_A.setText(word_A)
+                self.lineEdit_A.setText(word_a)
             else:
                 self.lineEdit_A.setFocus(True)
-                self.lineEdit_B.setText(word_B)
-                self.lineEdit_A.setText(word_A)
+                self.lineEdit_B.setText(word_b)
+                self.lineEdit_A.setText(word_a)
         if now_item.text() == '...':
             self.pushButton_del.setEnabled(False)
             self.A_del.setEnabled(False)
@@ -125,18 +125,18 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             # 设置焦点
             self.lineEdit_A.setFocus(True)
         else:
-            word_A = self.word_list[index]['A']
-            word_B = self.word_list[index]['B']
-            if word_A == '(空)':
-                self.lineEdit_B.setText(word_B)
+            word_a = self.word_list[index]['A']
+            word_b = self.word_list[index]['B']
+            if word_a == '(空)':
+                self.lineEdit_B.setText(word_b)
 
-            elif word_B == '(空)':
-                self.lineEdit_A.setText(word_A)
+            elif word_b == '(空)':
+                self.lineEdit_A.setText(word_a)
 
             else:
 
-                self.lineEdit_A.setText(word_A)
-                self.lineEdit_B.setText(word_B)
+                self.lineEdit_A.setText(word_a)
+                self.lineEdit_B.setText(word_b)
         if now_item.text() == '...':
             self.pushButton_del.setEnabled(False)
             self.A_del.setEnabled(False)
@@ -146,13 +146,13 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
 
     def save_item(self):
         self.file_change = True
-        word_A = self.lineEdit_A.text()
-        word_B = self.lineEdit_B.text()
+        word_a = self.lineEdit_A.text()
+        word_b = self.lineEdit_B.text()
 
         now_item: QtWidgets.QListWidgetItem = self.listWidget.currentItem()
         if now_item.text() == '...':
             # 添加模式
-            if word_A.strip() == '' + word_B.strip() == '':
+            if word_a.strip() == '' + word_b.strip() == '':
                 return
             self.add_item()
             self.lineEdit_A.setText('')
@@ -161,20 +161,20 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             self.lineEdit_A.setFocus(True)
         else:
             # 修改模式
-            if word_A.strip() == '' + word_B.strip() == '':
+            if word_a.strip() == '' + word_b.strip() == '':
                 self.del_item()
                 return
-            if word_A.strip() == '':
-                word_A = '(空)'
-            if word_B.strip() == '':
-                word_B = '(空)'
+            if word_a.strip() == '':
+                word_a = '(空)'
+            if word_b.strip() == '':
+                word_b = '(空)'
             index = self.listWidget.currentRow()
 
-            word_tab_len = self.get_tab_len(word_A)
-            self.word_list[index]['A'] = word_A
-            self.word_list[index]['B'] = word_B
+            word_tab_len = self.get_tab_len(word_a)
+            self.word_list[index]['A'] = word_a
+            self.word_list[index]['B'] = word_b
             self.word_list[index]['tab_len'] = word_tab_len
-            now_item.setText(word_A + self.get_tab(word_tab_len) + word_B)
+            now_item.setText(word_a + self.get_tab(word_tab_len) + word_b)
 
             self.lineEdit_A.setText('')
             self.lineEdit_B.setText('')
@@ -182,21 +182,21 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.update_data()
 
     def add_item(self):
-        word_A = self.lineEdit_A.text()
-        word_B = self.lineEdit_B.text()
+        word_a = self.lineEdit_A.text()
+        word_b = self.lineEdit_B.text()
 
-        if word_A.strip() == '':
-            word_A = '(空)'
-        if word_B.strip() == '':
-            word_B = '(空)'
+        if word_a.strip() == '':
+            word_a = '(空)'
+        if word_b.strip() == '':
+            word_b = '(空)'
         ins_row = self.listWidget.count() - 1
-        word_tab_len = self.get_tab_len(word_A)
+        word_tab_len = self.get_tab_len(word_a)
         word_item = self.listWidget.insertItem(
-            ins_row, word_A + self.get_tab(word_tab_len) + word_B)
+            ins_row, word_a + self.get_tab(word_tab_len) + word_b)
         word_dict = {
             'item': word_item,
-            'A': word_A,
-            'B': word_B,
+            'A': word_a,
+            'B': word_b,
             'tab_len': word_tab_len
         }
         self.word_list.append(word_dict)
@@ -214,9 +214,9 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             self.set_item()
         self.update_data()
 
-    def get_tab_len(self, word_A: str):
-        tab_len = int(len(bytes(word_A, 'GBK')) / 7)
-        if len(bytes(word_A, 'GBK')) in (27, 20):
+    def get_tab_len(self, word_a: str):
+        tab_len = int(len(bytes(word_a, 'GBK')) / 7)
+        if len(bytes(word_a, 'GBK')) in (27, 20):
             tab_len += 1
         if tab_len >= self.now_tab_len:
             # 如果A词条太长，就需要整体增长tab
@@ -231,10 +231,10 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         index = 0
         for i in self.word_list:
             item: QtWidgets.QListWidgetItem = self.listWidget.item(index)
-            word_A = self.word_list[index]['A']
-            word_B = self.word_list[index]['B']
+            word_a = self.word_list[index]['A']
+            word_b = self.word_list[index]['B']
             word_tab_len = self.word_list[index]['tab_len']
-            item.setText(word_A + self.get_tab(word_tab_len) + word_B)
+            item.setText(word_a + self.get_tab(word_tab_len) + word_b)
             index += 1
 
     def new_file(self):
@@ -483,7 +483,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
 
     def print(self, words: list, row, col, font='宋体', d_size=18, preview=False):
 
-        def print_word_A():
+        def print_word_a():
             pen = QtGui.QPen(QtCore.Qt.black, 1, QtCore.Qt.SolidLine)
 
             self.pat.setPen(pen)
@@ -511,7 +511,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
                 if n < self.sheet - 1:
                     self.prt.newPage()
 
-        def print_word_B():
+        def print_word_b():
             pen = QtGui.QPen(QtCore.Qt.black, 1, QtCore.Qt.SolidLine)
             self.pat.setPen(pen)
             # 打印镜像
@@ -538,23 +538,23 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             if not self.pat.begin(self.prt):
                 return
             self.config(words, row, col, font, d_size)
-            print_word_A()
+            print_word_a()
             self.prt.newPage()
-            print_word_B()
+            print_word_b()
             self.pat.end()
             return
 
         if not self.pat.begin(self.prt):
             return
         self.config(words, row, col, font, d_size)
-        print_word_A()
+        print_word_a()
         self.pat.end()
         if wordBMessageBox(self).exec() == 1:
             return
         if not self.pat.begin(self.prt):
             return
         self.config(words, row, col, font, d_size)
-        print_word_B()
+        print_word_b()
         self.pat.end()
 
 

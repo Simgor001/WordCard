@@ -36,6 +36,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.lineEdit_col.setValidator(QtGui.QIntValidator())
         self.lineEdit_row.setValidator(QtGui.QIntValidator())
         self.lineEdit_size.setValidator(QtGui.QIntValidator())
+        QtGui.QPainter.drawArc()
 
     def setConnect(self):
         self.lineEdit_A.returnPressed.connect(self.save_item)
@@ -62,12 +63,12 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.A_about.triggered.connect(self.about)
 
     def about(self):
-        class about_win(QtWidgets.QDialog, aboutWin.Ui_aboutWin):
-            def __init__(self,parent):
+        class AboutDialog(QtWidgets.QDialog, aboutWin.Ui_aboutWin):
+            def __init__(self, parent):
                 super().__init__(parent)
                 self.setupUi(self)
-        about_win(self).show()
-                
+
+        AboutDialog(self).show()
 
     def update_data(self):
         if self.file_change_SW:
@@ -77,14 +78,14 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.label_num.setText(str(len(self.word_list)))
         error_num = 0
         for i in self.word_list:
-            if i['A'] == '(空)'or i['B'] == '(空)':
+            if i['A'] == '(空)' or i['B'] == '(空)':
                 error_num += 1
         self.label_error_num.setText(str(error_num))
         # 计算页数
         row = int(self.lineEdit_row.text())
         col = int(self.lineEdit_col.text())
-        self.sheet = int(len(self.word_list)/(row*col))
-        if len(self.word_list) % (row*col) != 0:
+        self.sheet = int(len(self.word_list) / (row * col))
+        if len(self.word_list) % (row * col) != 0:
             self.sheet += 1
         self.label_paper.setText(str(self.sheet))
 
@@ -156,7 +157,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             self.add_item()
             self.lineEdit_A.setText('')
             self.lineEdit_B.setText('')
-            self.listWidget.setCurrentRow(self.listWidget.count()-1)
+            self.listWidget.setCurrentRow(self.listWidget.count() - 1)
             self.lineEdit_A.setFocus(True)
         else:
             # 修改模式
@@ -173,7 +174,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             self.word_list[index]['A'] = word_A
             self.word_list[index]['B'] = word_B
             self.word_list[index]['tab_len'] = word_tab_len
-            now_item.setText(word_A+self.get_tab(word_tab_len)+word_B)
+            now_item.setText(word_A + self.get_tab(word_tab_len) + word_B)
 
             self.lineEdit_A.setText('')
             self.lineEdit_B.setText('')
@@ -188,10 +189,10 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             word_A = '(空)'
         if word_B.strip() == '':
             word_B = '(空)'
-        ins_row = self.listWidget.count()-1
+        ins_row = self.listWidget.count() - 1
         word_tab_len = self.get_tab_len(word_A)
         word_item = self.listWidget.insertItem(
-            ins_row, word_A+self.get_tab(word_tab_len)+word_B)
+            ins_row, word_A + self.get_tab(word_tab_len) + word_B)
         word_dict = {
             'item': word_item,
             'A': word_A,
@@ -214,7 +215,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.update_data()
 
     def get_tab_len(self, word_A: str):
-        tab_len = int(len(bytes(word_A, 'GBK'))/7)
+        tab_len = int(len(bytes(word_A, 'GBK')) / 7)
         if len(bytes(word_A, 'GBK')) in (27, 20):
             tab_len += 1
         if tab_len >= self.now_tab_len:
@@ -233,7 +234,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             word_A = self.word_list[index]['A']
             word_B = self.word_list[index]['B']
             word_tab_len = self.word_list[index]['tab_len']
-            item.setText(word_A+self.get_tab(word_tab_len)+word_B)
+            item.setText(word_A + self.get_tab(word_tab_len) + word_B)
             index += 1
 
     def new_file(self):
@@ -259,7 +260,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             if not os.path.isfile(file_name):
                 return
             self.file_name = file_name
-            self.setWindowTitle(self.file_name+' - Sail Word Card')
+            self.setWindowTitle(self.file_name + ' - Sail Word Card')
             self.file_change = False
 
             with open(self.file_name, 'r', encoding='UTF-8') as f:
@@ -272,7 +273,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             if self.file_name != '':
                 with open(self.file_name, 'r', encoding='UTF-8') as f:
                     self.load_file(json.load(f))
-                self.setWindowTitle(self.file_name+' - Sail Word Card')
+                self.setWindowTitle(self.file_name + ' - Sail Word Card')
                 self.file_change = False
 
     def save(self):
@@ -299,12 +300,12 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.word_list = word_card['data']
         index = 0
         for i in self.word_list:
-            ins_row = self.listWidget.count()-1
+            ins_row = self.listWidget.count() - 1
             i['item'] = self.listWidget.insertItem(
-                ins_row, i['A']+self.get_tab(i['tab_len'])+i['B'])
+                ins_row, i['A'] + self.get_tab(i['tab_len']) + i['B'])
             self.word_list[index] = i
             index += 1
-        self.listWidget.setCurrentRow(self.listWidget.count()-1)
+        self.listWidget.setCurrentRow(self.listWidget.count() - 1)
         self.update_data()
 
     def save_file(self):
@@ -343,7 +344,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
                 with open(self.file_name, 'w', encoding='UTF-8') as f:
                     json.dump(self.save_file(), f,
                               ensure_ascii=False, indent=4)
-                self.setWindowTitle(self.file_name+' - Sail Word Card')
+                self.setWindowTitle(self.file_name + ' - Sail Word Card')
                 self.file_change = False
                 return 1
             else:
@@ -412,8 +413,8 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.col = col + 1
         self.font = font
         # 计算页数
-        self.sheet = int(len(words)/(row*col))
-        if len(words) % (row*col) != 0:
+        self.sheet = int(len(words) / (row * col))
+        if len(words) % (row * col) != 0:
             self.sheet += 1
 
         self.y_list = list()
@@ -493,14 +494,15 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
                                       self.x_list[i], self.mmToPix_y(195))
                 for i in range(self.row):
                     if i < self.row - 1 and index < len(self.words):
-                        for col_index in range(self.col-1):
+                        for col_index in range(self.col - 1):
                             if index >= len(self.words):
                                 break
                             word_dict = self.words[index]
                             self.pat.setFont(QtGui.QFont(
                                 self.font, word_dict['sizeA']))
                             self.pat.drawText(
-                                word_dict['xA'] + self.x_list[col_index], word_dict['yA'] + self.y_list[i] + self.mmToPix_y(5), word_dict['wordA'])
+                                word_dict['xA'] + self.x_list[col_index],
+                                word_dict['yA'] + self.y_list[i] + self.mmToPix_y(5), word_dict['wordA'])
 
                             index += 1
                     self.pat.drawLine(0, self.y_list[i],
@@ -517,14 +519,15 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
             for n in range(self.sheet):
                 for i in range(self.row):
                     if i < self.row - 1 and index < len(self.words):
-                        for col_index in range(self.col-1):
+                        for col_index in range(self.col - 1):
                             if index >= len(self.words):
                                 break
                             word_dict = self.words[index]
                             self.pat.setFont(QtGui.QFont(
                                 self.font, word_dict['sizeB']))
                             self.pat.drawText(
-                                word_dict['xB'] + self.x_list[self.col - col_index - 2], word_dict['yB'] + self.y_list[i] + self.mmToPix_y(5), word_dict['wordB'])
+                                word_dict['xB'] + self.x_list[self.col - col_index - 2],
+                                word_dict['yB'] + self.y_list[i] + self.mmToPix_y(5), word_dict['wordB'])
 
                             index += 1
 

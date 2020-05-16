@@ -32,6 +32,3 @@ def update(verstion):
         os.system('start %s' % update_file)
     except:
         print('更新失败！')
-
-
-update('1.0.0')

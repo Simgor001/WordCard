@@ -21,4 +21,5 @@ if __name__ == "__main__":
     app.setAttribute(QtCore.Qt.AA_DisableWindowContextHelpButton)
     SailWordCard = core.core()
     SailWordCard.show()
+    
     sys.exit(app.exec())

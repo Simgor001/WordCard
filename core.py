@@ -248,6 +248,7 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
 
             self.listWidget.setCurrentRow(0)
             self.listWidget.setSelectionMode(self.listWidget.SingleSelection)
+            self.file_name = ''
 
     def open_file(self, file_name=''):
 

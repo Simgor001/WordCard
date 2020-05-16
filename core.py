@@ -36,7 +36,6 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.lineEdit_col.setValidator(QtGui.QIntValidator())
         self.lineEdit_row.setValidator(QtGui.QIntValidator())
         self.lineEdit_size.setValidator(QtGui.QIntValidator())
-        QtGui.QPainter.drawArc()
 
     def setConnect(self):
         self.lineEdit_A.returnPressed.connect(self.save_item)

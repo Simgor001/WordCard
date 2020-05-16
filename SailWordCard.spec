@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['SailWordCard.py'],
-             pathex=['E:\\Project-Python\\SailWordCard'],
+             pathex=['E:\\Project-Python\\HelloWold'],
              binaries=[],
              datas=[],
              hiddenimports=[],

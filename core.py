@@ -421,9 +421,9 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
         self.x_list = list()
 
         for i in range(self.col):
-            self.x_list.append(self.mmToPix_x(284 / col * i))
+            self.x_list.append(int(self.mmToPix_x(284 / col * i)))
         for i in range(self.row):
-            self.y_list.append(self.mmToPix_y(195 / row * i))
+            self.y_list.append(int(self.mmToPix_y(195 / row * i)))
 
         'wordA,wordB,xA,yA,xB,yB,sizeA,sizeB'
         self.words = list()
@@ -442,8 +442,8 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
                 if i < -8:
                     break
 
-            word_dict['xA'] = (width - w_size) / 2
-            word_dict['yA'] = (height - self.pat.fontMetrics().height()) / 2
+            word_dict['xA'] = int((width - w_size) / 2)
+            word_dict['yA'] = int((height - self.pat.fontMetrics().height()) / 2)
 
             # 注意：w_size被复用
             w_size = d_size + i
@@ -459,8 +459,8 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
                 if i < -8:
                     break
 
-            word_dict['xB'] = (width - w_size) / 2
-            word_dict['yB'] = (height - self.pat.fontMetrics().height()) / 2
+            word_dict['xB'] = int((width - w_size) / 2)
+            word_dict['yB'] = int((height - self.pat.fontMetrics().height()) / 2)
 
             # 注意：w_size被复用
             w_size = d_size + i
@@ -474,12 +474,12 @@ class core(QtWidgets.QMainWindow, mainWin.Ui_MainWindow):
     def mmToPix_x(self, x):
         rect: QtCore.QRect = self.prt.paperRect()
         width = rect.width()
-        return width / 297 * x
+        return int(width / 297 * x)
 
     def mmToPix_y(self, y):
         rect: QtCore.QRect = self.prt.paperRect()
         height = rect.height()
-        return height / 210 * y
+        return int(height / 210 * y)
 
     def print(self, words: list, row, col, font='宋体', d_size=18, preview=False):
 

@@ -9,7 +9,7 @@ from PyQt5 import QtWidgets
 
 
 if __name__ == "__main__":
-    threading.Thread(target=update.update, args=('1.0.0',)).start()
+    threading.Thread(target=update.update, args=('1.2.0',)).start()
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon(':/logo/icon.png'))
     # if sys.platform.startswith('win'):

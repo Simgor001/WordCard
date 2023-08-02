@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "wordcard"
+version = "1.2.0"
+description = ""
+authors = ["Simgor001"]
+license = "GPL-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pyqt5 = "^5.15.9"
+urllib3 = "^2.0.4"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
